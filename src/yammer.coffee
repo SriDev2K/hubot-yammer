@@ -36,6 +36,7 @@ class YammerAdapter extends Adapter
     bot = new YammerRealtime(options, @robot)
     bot.listen (err, data) =>
       user_name = (reference.name for reference in data.references when reference.type is "user")
+      user_email = (reference.email for reference in data.references when reference.type is "user")
       self_id = data.meta.current_user_id
       data.messages.forEach (message) =>
         if message.group_id in bot.groups_ids
@@ -50,6 +51,7 @@ class YammerAdapter extends Adapter
           else
             user =
               name: user_name
+              email: user_email
               id: sender_id
               thread_id: thread_id
             @robot.receive new TextMessage user, text

@@ -81,7 +81,8 @@ class YammerRealtime extends EventEmitter
   listen: (callback) ->
     @yammer.realtime.messages (err, data) ->
       if err
-        console.error "yammer realtime messages error- #{err}"
+        console.error "Yammer realtime messages error - Error details: " + err.stack
+        process.exit 1
       else
         try
           if (data != undefined) && data?
